@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kuvaka/screens/enter_phonenumber.dart';
 import 'package:kuvaka/screens/login_screen.dart';
-import 'package:kuvaka/screens/signup_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontFamily: 'inter',
@@ -43,14 +43,14 @@ class SplashScreen extends StatelessWidget {
           Positioned(
             top:MediaQuery.of(context).size.width * 0.24,
             left: MediaQuery.of(context).size.width * 0.08 ,
-            child: Text("EatExpress",style: TextStyle(fontFamily: 'libre',fontSize: 24,fontWeight: FontWeight.w500,color: Color(0xFF121212)),
+            child: const Text("EatExpress",style: TextStyle(fontFamily: 'libre',fontSize: 24,fontWeight: FontWeight.w500,color: Color(0xFF121212)),
             // Center(child: Image.asset('assets/EatExpress.png')
             ),),
             Positioned(
             top:MediaQuery.of(context).size.width * 0.37,
             left: MediaQuery.of(context).size.width * 0.08 ,
             child:RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: [
                   TextSpan(
                     text: "Connect to food \noutlets",
@@ -108,11 +108,11 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildtButton(screenSize.height * 0.9, screenSize.width *1.03 , "Sign Up", Color(0xFF25AD34) , (){
-                  Get.to(()=>SignUpScreen());
+                _buildtButton(screenSize.height * 0.9, screenSize.width *1.03 , "Sign Up", const Color(0xFF25AD34) , (){
+                  Get.to(()=>const EnterPhone());
                 }),
                 SizedBox(height: screenSize.height * 0.03),
-                 _buildtButton(screenSize.height * 0.9, screenSize.width *1.03 , "Log In", Color(0xFF5C5C8B), (){
+                 _buildtButton(screenSize.height * 0.9, screenSize.width *1.03 , "Log In", const Color(0xFF5C5C8B), (){
                   Get.to(()=>LoginScreen());
                  } ),
               ],

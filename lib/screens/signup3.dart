@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kuvaka/controllers/auth_controller.dart';
+import 'package:kuvaka/models/user_model.dart';
+import 'package:kuvaka/screens/login_screen.dart';
+import 'package:kuvaka/screens/signup4.dart';
 // import 'package:get/get.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 final  controller = Get.put(AuthController());
 class SignUpScreen3 extends StatelessWidget {
   
-  final nameController = TextEditingController();
-  final emailOrPhoneController = TextEditingController();
-  final passwordController = TextEditingController();
+final UserData userData;
   
 
-  SignUpScreen3({super.key});
+  SignUpScreen3({super.key, required this.userData});
 
 
   @override
@@ -32,16 +33,20 @@ class SignUpScreen3 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Title
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
-                      radius: screenHeight * 0.033,
-                      backgroundColor: Color(0xFF25AD34),
-                      child: Icon(Icons.arrow_back_ios_new, size: screenHeight * 0.025,color: Colors.white,),
+                  GestureDetector(
+                    onTap: (){Get.back();},
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CircleAvatar(
+                        radius: screenHeight * 0.033,
+                        backgroundColor: Color(0xFF25AD34),
+                        child: Icon(Icons.arrow_back_ios_new, size: screenHeight * 0.025,color: Colors.white,),
+                      ),
                     ),
                   ),
+                  
                   Padding(
-                    padding: EdgeInsets.fromLTRB(screenWidth *0.09, screenHeight * 0.015, screenWidth *0.09, 0),
+                    padding: EdgeInsets.fromLTRB(screenWidth *0.06, screenHeight * 0.015, screenWidth *0.06, 0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.values[2],
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,12 +69,12 @@ class SignUpScreen3 extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // SizedBox(height: screenHeight * 0.005,),
+                  SizedBox(height: screenHeight * 0.1,),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+                    padding:  EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                     child: RichText(
                       text: TextSpan(
-                        text: "Step 1",
+                        text: "Step 3",
                         style: TextStyle(
                           fontFamily: 'inter',
                           fontSize: 14,
@@ -78,7 +83,7 @@ class SignUpScreen3 extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: " Personal Details",
+                            text: " Details about vehicle",
                             style: TextStyle(
                               fontFamily: 'inter',
                               fontSize: 14,
@@ -87,41 +92,93 @@ class SignUpScreen3 extends StatelessWidget {
                         )]
                     )),
                   ),
-                  SizedBox(height: screenHeight * 0.06),
+                  SizedBox(height: screenHeight * 0.02,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+                    child: Text("Select vehicle",   style: TextStyle(
+                                fontFamily: 'inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF8D8D8D))),
+                  ),
+                   Obx(() => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            child: RadioListTile<String>(
+                              contentPadding: EdgeInsets.zero, // Removes extra padding around the tile
+            dense: true, // Reduces the size of the tile
+            visualDensity: VisualDensity.compact, // Makes the tile more compact
+            activeColor: Colors.green, // Set
+                              title: Text(
+                                "Motorcycle",
+                                style: TextStyle(
+                                  fontFamily: 'inter',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              value: "Motorcycle",
+                              groupValue: controller.selectedVehicle.value,
+                              onChanged: (value) {
+                                if (value != null) {
+                                  controller.selectedVehicle.value = value;
+                                }
+                              },
+                            ),
+                          ),
+                          Flexible(
+                            child: RadioListTile<String>(
+                              contentPadding: EdgeInsets.zero, // Removes extra padding around the tile
+            dense: true, // Reduces the size of the tile
+            visualDensity: VisualDensity.compact, // Makes the tile more compact
+            activeColor: Colors.green, // Set
+                              title: Text(
+                                "Car",
+                                style: TextStyle(
+                                  fontFamily: 'inter',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              value: "Car",
+                              groupValue: controller.selectedVehicle.value,
+                              onChanged: (value) {
+                                if (value != null) {
+                                  controller.selectedVehicle.value = value;
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      )),
+                  SizedBox(height: screenHeight * 0.03),
                   _buildTextField(
-                    controller: emailOrPhoneController,
-                    hintText: "Driver Name",
-                    inputType: TextInputType.emailAddress,
+                    controller: controller.vehicleRegNoController,
+                    hintText: "Vehicle Registration Number",
+                    inputType: TextInputType.text,
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   _buildTextField(
-                    controller: passwordController,
-                    hintText: "Email Address",
-                    isPassword: true,
+                    controller: controller.vehicleController,
+                    hintText: "Which Vehicle is it?",
+                    isPassword: false,
+                    inputType: TextInputType.streetAddress
                   ),
-                   SizedBox(height: screenHeight * 0.01),
-                  //  _buildDateOfBirthField(context),
-                    SizedBox(height: screenHeight * 0.01),
-                  _buildTextField(
-                    controller: passwordController,
-                    hintText: "Email Address",
-                    isPassword: true,
-                  ),
-                  SizedBox(height: screenHeight * 0.079),
-                 
-                  _buildSubmitButton(screenHeight, screenWidth),
-                  SizedBox(height: screenHeight * 0.02),
                    
-                  Column(
+                 
+                  SizedBox(height: screenHeight * 0.032),
+                 Column(
                     children: [
-                      SizedBox(height: screenHeight * 0.08,),
+                      SizedBox(height: screenHeight * 0.15),
                       Center(   
                         child: GestureDetector(
                           onTap: () {
+                            Get.to(()=>LoginScreen());
                           },
                           child: RichText(
                            text: TextSpan(
-                             text: "Forgot Password?",
+                             text: "Already a registered user?",
                              style: TextStyle(
                                fontFamily: 'inter',
                                fontSize: 14,
@@ -130,7 +187,7 @@ class SignUpScreen3 extends StatelessWidget {
                              ),
                              children: [
                                TextSpan(
-                                 text: " Click here",
+                                 text: " Log in",
                                  style: TextStyle(
                                    fontFamily: 'inter',
                                    fontSize: 14,
@@ -142,7 +199,11 @@ class SignUpScreen3 extends StatelessWidget {
                       ),
                       
                     ],
-                  )
+                  ),
+                  SizedBox(height: screenHeight * 0.035),
+                  _buildNextButton(screenHeight, screenWidth),
+                  SizedBox(height: screenHeight * 0.02),
+                   
                 ],
               ),
             ),
@@ -185,9 +246,9 @@ class SignUpScreen3 extends StatelessWidget {
     );
   }
 
- 
+  
 
-Widget _buildSubmitButton(double screenHeight, double screenWidth) {
+Widget _buildNextButton(double screenHeight, double screenWidth) {
   return Align(
     alignment: Alignment.center, 
     child: FractionallySizedBox(
@@ -201,9 +262,14 @@ Widget _buildSubmitButton(double screenHeight, double screenWidth) {
           ),
           backgroundColor: Color(0xFF25AD34),
         ),
-        onPressed: () {},
+        onPressed: () {
+          userData.vehicleRegNo = controller.vehicleRegNoController.text.trim();
+          userData.vehicle = controller.selectedVehicle.value;
+          
+          Get.to(()=>SignUpScreen4(userData : userData));
+        },
         child: Text(
-          "Submit",
+          "Next",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,

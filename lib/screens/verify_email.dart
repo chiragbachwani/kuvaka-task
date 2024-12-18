@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kuvaka/controllers/auth_controller.dart';
 import 'package:kuvaka/models/user_model.dart';
-import 'package:kuvaka/screens/login_screen.dart';
-import 'package:kuvaka/screens/signup3.dart';
+import 'package:kuvaka/screens/signup2.dart';
 // import 'package:get/get.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 final  controller = Get.put(AuthController());
-class SignUpScreen2 extends StatelessWidget {
+class VerifyEmail extends StatelessWidget {
   
-  final UserData userData;
 
-  SignUpScreen2({super.key, required this.userData});
+  const VerifyEmail({super.key});
 
 
   @override
@@ -38,113 +36,89 @@ class SignUpScreen2 extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: CircleAvatar(
                         radius: screenHeight * 0.033,
-                        backgroundColor: Color(0xFF25AD34),
+                        backgroundColor: const Color(0xFF25AD34),
                         child: Icon(Icons.arrow_back_ios_new, size: screenHeight * 0.025,color: Colors.white,),
                       ),
                     ),
                   ),
-                  
                   Padding(
-                    padding: EdgeInsets.fromLTRB(screenWidth *0.06, screenHeight * 0.015, screenWidth *0.06, 0),
+                    padding: EdgeInsets.fromLTRB(screenWidth *0.03, screenHeight * 0.015, screenWidth *0.03, 0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.values[2],
+                      crossAxisAlignment: CrossAxisAlignment.values[1],
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset('assets/right.png'),
+                        Image.asset('assets/right.png', width: screenWidth * 0.17,),
                         Column(
                           children: [
                             Text(
-                              "Sign Up",
+                              "Verify your\n email ",
                               style: TextStyle(
                                 fontFamily: 'inter',
                                 fontSize: screenHeight * 0.035,
                                 fontWeight: FontWeight.w600,),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: screenHeight * 0.02,)
+                            // SizedBox(height: screenHeight * 0.02,)
                           ],
                         ),
-                        Image.asset('assets/left.png'),
+                        Image.asset('assets/left.png',width: screenWidth * 0.17),
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.1,),
+                  SizedBox(height: screenHeight * 0.12,),
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
-                    child: RichText(
-                      text: TextSpan(
-                        text: "Step 2",
-                        style: TextStyle(
-                          fontFamily: 'inter',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF413F3F),
-                        ),
-                        children: [
-                          TextSpan(
-                            text: " Address Details",
-                            style: TextStyle(
-                              fontFamily: 'inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFF8D8D8D))
-                        )]
-                    )),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children:[ RichText(
+                        text:
+                            const TextSpan(
+                              text: "Please enter OTP that has been\n sent to yout ABC@gmail.com",
+                              style: TextStyle(
+                                fontFamily: 'inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF8D8D8D))
+                          )
+                      ),]
+                    ),
                   ),
-                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(height: screenHeight * 0.06),
                   _buildTextField(
-                    controller: controller.pincodeController,
-                    hintText: "Pincode",
+                    controller: controller.emailOTPcontroller,
+                    hintText: "Enter OTP",
                     inputType: TextInputType.number,
                   ),
                   SizedBox(height: screenHeight * 0.01),
-                  _buildTextField(
-                    controller: controller.addressController,
-                    hintText: "Address 1",
-                    isPassword: false,
-                    inputType: TextInputType.streetAddress
-                  ),
-                   SizedBox(height: screenHeight * 0.01),
+                  
+                  SizedBox(height: screenHeight * 0.079),
                  
-                    SizedBox(height: screenHeight * 0.01),
-                 
-                  SizedBox(height: screenHeight * 0.087),
-                 Column(
+                  _buildSubmitButton(screenHeight, screenWidth),
+                  SizedBox(height: screenHeight * 0.02),
+                   
+                  Column(
                     children: [
-                      SizedBox(height: screenHeight * 0.15),
+                      SizedBox(height: screenHeight * 0.08,),
                       Center(   
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(()=>LoginScreen());
                           },
                           child: RichText(
-                           text: TextSpan(
-                             text: "Already a registered user?",
-                             style: TextStyle(
-                               fontFamily: 'inter',
-                               fontSize: 14,
-                               fontWeight: FontWeight.w500,
-                               color: Color(0xFF413F3F),
-                             ),
-                             children: [
-                               TextSpan(
-                                 text: " Log in",
+                           text: 
+                               const TextSpan(
+                                 text: "Resent OTP?",
                                  style: TextStyle(
                                    fontFamily: 'inter',
                                    fontSize: 14,
                                    fontWeight: FontWeight.w500,
                                    color: Colors.blue
                            ),
-                          ),]
-                        ),)),
+                          ),
+                        )),
                       ),
                       
                     ],
-                  ),
-                  SizedBox(height: screenHeight * 0.035),
-                  _buildNextButton(screenHeight, screenWidth),
-                  SizedBox(height: screenHeight * 0.02),
-                   
+                  )
                 ],
               ),
             ),
@@ -153,6 +127,7 @@ class SignUpScreen2 extends StatelessWidget {
       ),
     );
   }
+
 
 
   Widget _buildTextField({
@@ -165,7 +140,7 @@ class SignUpScreen2 extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(36),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 2,
@@ -179,17 +154,16 @@ class SignUpScreen2 extends StatelessWidget {
         obscureText: isPassword,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontFamily: 'inter', fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w500),
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+          hintStyle: const TextStyle(fontFamily: 'inter', fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w500),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           border: InputBorder.none,
         ),
       ),
     );
   }
 
-  
 
-Widget _buildNextButton(double screenHeight, double screenWidth) {
+Widget _buildSubmitButton(double screenHeight, double screenWidth) {
   return Align(
     alignment: Alignment.center, 
     child: FractionallySizedBox(
@@ -201,15 +175,13 @@ Widget _buildNextButton(double screenHeight, double screenWidth) {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          backgroundColor: Color(0xFF25AD34),
+          backgroundColor: const Color(0xFF25AD34),
         ),
         onPressed: () {
-          userData.address = controller.addressController.text.trim();
-          userData.pincode = controller.pincodeController.text.trim();
-          Get.to(()=>SignUpScreen3(userData : userData));
+          Get.to(SignUpScreen2(userData:UserData(),));
         },
-        child: Text(
-          "Next",
+        child: const Text(
+          "Submit",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
